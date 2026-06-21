@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA et Climat : Promesses vs Réalité | Enquête</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES CSS (Thème Clair par défaut) --- */
+        :root {
+            --bg-color: #fcfcfc;
+            --text-color: #1a1a1a;
+            --light-text: #555555;
+            --border-color: #dddddd;
+            --accent-color: #00509e; /* Bleu éditorial */
+            --header-bg: #ffffff;
+            --table-header-bg: #00509e;
+            --table-header-text: #ffffff;
+            --table-row-even: #f9f9f9;
+            --btn-bg: #1a1a1a;
+            --btn-text: #ffffff;
+        }
+
+        /* --- VARIABLES CSS (Thème Sombre activé par JS) --- */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --light-text: #a0a0a0;
+            --border-color: #2d2d2d;
+            --accent-color: #64b5f6; /* Bleu plus clair pour le contraste en mode sombre */
+            --header-bg: #1a1a1a;
+            --table-header-bg: #2d2d2d;
+            --table-header-text: #64b5f6;
+            --table-row-even: #1d1d1d;
+            --btn-bg: #ffffff;
+            --btn-text: #1a1a1a;
+        }
+
+        /* Styles globaux avec transition fluide lors du changement de thème */
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* En-tête type journal avec disposition Flexbox */
+        header.site-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            background-color: var(--header-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Zone Logo (Gauche) */
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .iut-logo {
+            height: 50px; /* Ajuste la hauteur selon ton image */
+            width: auto;
+            object-fit: contain;
+            /* Filtre optionnel pour rendre le logo un peu plus visible en mode sombre si besoin */
+            transition: filter 0.3s ease;
+        }
+
+        /* Zone Titre (Centre) */
+        .site-title {
+            flex: 2;
+            text-align: center;
+        }
+
+        header.site-header h1 {
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            transition: color 0.3s ease;
+        }
+
+        /* Zone Bouton (Droite) */
+        .actions-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .theme-btn {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .theme-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Conteneur principal de l'article */
+        main.article-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* En-tête de l'article */
+        .article-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .article-header h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--light-text);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 0;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .author-info {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Corps du texte */
+        .article-content h2 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .intro {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--light-text);
+        }
+
+        /* Style du tableau de données adaptable au changement de thème */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.95rem;
+            background-color: var(--header-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            color: var(--table-header-text);
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-row-even);
+        }
+
+        /* Pied de page */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.9rem;
+            color: var(--light-text);
+            background-color: var(--header-bg);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="header-nav">
+            <div class="logo-container">
+                <img src="logo-iut.png" alt="Logo IUT" class="iut-logo">
+            </div>
+            
+            <div class="site-title">
+                <h1>Le Journal de la Tech Durable</h1>
+            </div>
+            
+            <div class="actions-container">
+                <button id="theme-toggle" class="theme-btn">🌙 Mode Sombre</button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-container">
+        <article>
+            <header class="article-header">
+                <h1>IA et Climat, le grand écart des géants de la Tech entre promesses et réalité</h1>
+                <div class="article-meta">
+                    <span>Par <span class="author-info">BOUNDER Gaya</span></span>
+                    <span>BUT 2 Informatique - Parcours C</span>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <p class="intro">L'intelligence artificielle promet de révolutionner notre monde, y compris dans la lutte contre le changement climatique. Pourtant, alors que les géants technologiques multiplient les annonces d'investissements massifs dans les énergies vertes, la réalité de leurs bilans carbones raconte une toute autre histoire, propulsée par la gourmandise énergétique de l'IA.</p>
+                
+                <p>Avant toute chose, il faut rappeler le cadre légal : en Europe, la directive CSRD (Corporate Sustainability Reporting Directive) oblige les grandes entreprises à publier des données environnementales standardisées. Aux États-Unis, la SEC (le gendarme de la bourse) impose également des règles de transparence climatique pour les entreprises cotées. Cacher ces chiffres n'est plus une option légale.</p>
+
+                <h2>Microsoft : Des achats verts massifs, mais un Scope 3 qui explose</h2>
+                <p>Microsoft se veut être le fer de lance de l'action climatique avec une promesse audacieuse : devenir une entreprise à empreinte carbone négative d'ici 2030. Pour y parvenir, la firme a sécurisé 34 gigawatts (GW) d'électricité sans carbone (CFE) à travers 24 pays. L'année 2024 a d'ailleurs été marquée par un coup d'accélérateur avec la signature de contrats pour 19 GW supplémentaires.</p>
+                <p>Cependant, la réalité de la croissance de l'IA et du cloud vient heurter ces ambitions. <strong>Les émissions totales de Microsoft ont augmenté de 23,4 % par rapport à l'année de référence 2020.</strong> L'entreprise affiche fièrement une baisse de 29,9 % sur ses Scopes 1 et 2 (ses émissions directes), mais son Scope 3 a bondi de 26 %.</p>
+                <p>Le problème majeur réside dans ce Scope 3, qui représente environ 97 % des émissions totales de l'entreprise. Ces émissions indirectes sont massivement tirées par les catégories "Biens d'équipement" et "Biens et services achetés", des secteurs directement liés à la construction et à l'équipement de nouveaux data centers pour soutenir l'IA.</p>
+
+                <h2>Google : Efficience opérationnelle face au défi du volume global</h2>
+                <p>La stratégie de Google repose sur une ambition forte : fonctionner avec une énergie sans carbone 24 heures sur 24 et 7 jours sur 7. En 2024, l'entreprise a signé des contrats pour plus de 8 GW d'énergie propre additionnelle. Google met en avant l'impact positif de ses technologies, affirmant que cents de ses produits ont permis d'éviter 26 millions de tonnes d'équivalent CO2 (tCO2e) chez ses partenaires et utilisateurs.</p>
+                <p>L'entreprise souligne également avoir réduit de 12 % les émissions énergétiques liées à ses centres de données en 2024. Cette réduction opérationnelle est notable puisqu'elle a été réalisée malgré une augmentation de 27 % de sa consommation électrique globale.</p>
+                <p>Néanmoins, l'empreinte environnementale globale reste colossale : <strong>les émissions totales de Google s'élèvent à 11,5 millions de tonnes de CO2 pour l'année 2024.</strong></p>
+
+                <h2>L'exception française : Mistral AI et la transparence chirurgicale</h2>
+                <p>Face aux bilans macroscopiques des géants américains, où l'impact spécifique de l'intelligence artificielle est noyé dans l'activité globale de l'entreprise, le français Mistral AI adopte une approche radicalement différente. Au lieu de donner un chiffre global, l'entreprise a publié une Analyse de Cycle de Vie (ACV) précise pour son modèle d'intelligence artificielle, Mistral Large 2.</p>
+                <p>L'entraînement seul de ce modèle a généré 20,4 kilotonnes d'équivalent CO2 (soit 20 400 tonnes, ce qui correspond à l'empreinte carbone annuelle d'environ 2 000 citoyens français). Cet entraînement a nécessité la consommation de 281 000 m3 d'eau.</p>
+                <p>L'entreprise calcule même l'impact de l'utilisation quotidienne par les internautes : une réponse type de 400 mots coûte environ 1,14 gramme de CO2 (soit à peu près l'énergie nécessaire pour recharger un smartphone à 50 %).</p>
+
+                <h2>Synthèse des engagements et de la réalité</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Acteur</th>
+                            <th>Engagements & Progrès mis en avant</th>
+                            <th>La Réalité des Chiffres</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Microsoft</strong></td>
+                            <td>Atteindre un bilan carbone négatif d'ici 2030 ; 34 GW d'énergie sans carbone contractés.</td>
+                            <td>+23,4 % d'émissions totales depuis 2020. Le Scope 3 représente 97 % du total et grimpe en flèche.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google</strong></td>
+                            <td>8 GW d'énergie propre signés en 2024 ; baisse de 12 % des émissions liées à l'énergie des data centers.</td>
+                            <td>Des émissions totales qui pèsent 11,5 millions de tonnes de CO2 en 2024, malgré une hausse de 27 % de la consommation électrique.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mistral AI</strong></td>
+                            <td>Transparence sur le cycle de vie spécifique d'un modèle d'IA.</td>
+                            <td>L'entraînement d'un modèle lourd coûte 20 400 tonnes de CO2 et des centaines de milliers de mètres cubes d'eau.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Conclusion</h2>
+                <p>L'émergence de l'intelligence artificielle générative met à l'épreuve les promesses écologiques des géants du numérique. Si les efforts pour acheter de l'énergie verte sont colossaux et réels, ils peinent à compenser l'explosion des besoins matériels et énergétiques (le Scope 3).</p>
+                <p>L'initiative de Mistral AI montre la voie à suivre : pour que la tech soit réellement responsable et évite le greenwashing, elle doit abandonner la communication globale floue au profit d'une transparence précise, produit par produit. Seule cette clarté permettra au grand public et aux régulateurs de mesurer le vrai coût de notre révolution numérique.</p>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2026 BOUNDER Gaya. Projet réalisé dans le cadre du BUT Informatique (Parcours C).</p>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        
+        // Écoute du clic sur le bouton
+        toggleBtn.addEventListener('click', () => {
+            // Bascule la classe .dark-mode sur la balise <body>
+            document.body.classList.toggle('dark-mode');
+            
+            // Met à jour le texte du bouton selon l'état du thème
+            if (document.body.classList.contains('dark-mode')) {
+                toggleBtn.textContent = '☀️ Mode Clair';
+            } else {
+                toggleBtn.textContent = '🌙 Mode Sombre';
+            }
+        });
+    </script>
+</body>
+</html>
