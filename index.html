@@ -20,6 +20,13 @@
             --table-row-even: #f9f9f9;
             --btn-bg: #1a1a1a;
             --btn-text: #ffffff;
+            
+            /* Couleurs Spécifiques du Quiz */
+            --quiz-bg: #f4f7f6;
+            --quiz-option-bg: #ffffff;
+            --quiz-option-hover: #eef3f7;
+            --quiz-correct: #2e7d32;
+            --quiz-incorrect: #c62828;
         }
 
         /* --- VARIABLES CSS (Thème Sombre activé par JS) --- */
@@ -28,16 +35,22 @@
             --text-color: #e0e0e0;
             --light-text: #a0a0a0;
             --border-color: #2d2d2d;
-            --accent-color: #64b5f6; /* Bleu plus clair pour le contraste en mode sombre */
+            --accent-color: #64b5f6;
             --header-bg: #1a1a1a;
             --table-header-bg: #2d2d2d;
             --table-header-text: #64b5f6;
             --table-row-even: #1d1d1d;
             --btn-bg: #ffffff;
             --btn-text: #1a1a1a;
+            
+            /* Couleurs Spécifiques du Quiz en Sombre */
+            --quiz-bg: #1e1e1e;
+            --quiz-option-bg: #2d2d2d;
+            --quiz-option-hover: #3d3d3d;
+            --quiz-correct: #81c784;
+            --quiz-incorrect: #e57373;
         }
 
-        /* Styles globaux avec transition fluide lors du changement de thème */
         body {
             font-family: 'Lora', serif;
             background-color: var(--bg-color);
@@ -64,7 +77,6 @@
             margin: 0 auto;
         }
 
-        /* Zone Logo (Gauche) */
         .logo-container {
             flex: 1;
             display: flex;
@@ -72,14 +84,11 @@
         }
 
         .iut-logo {
-            height: 50px; /* Ajuste la hauteur selon ton image */
+            height: 50px;
             width: auto;
             object-fit: contain;
-            /* Filtre optionnel pour rendre le logo un peu plus visible en mode sombre si besoin */
-            transition: filter 0.3s ease;
         }
 
-        /* Zone Titre (Centre) */
         .site-title {
             flex: 2;
             text-align: center;
@@ -92,10 +101,8 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--accent-color);
-            transition: color 0.3s ease;
         }
 
-        /* Zone Bouton (Droite) */
         .actions-container {
             flex: 1;
             display: flex;
@@ -118,17 +125,15 @@
 
         .theme-btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        /* Conteneur principal de l'article */
+        /* Conteneur principal */
         main.article-container {
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
         }
 
-        /* En-tête de l'article */
         .article-header {
             margin-bottom: 40px;
             text-align: center;
@@ -158,7 +163,6 @@
             color: var(--accent-color);
         }
 
-        /* Corps du texte */
         .article-content h2 {
             font-family: 'Open Sans', sans-serif;
             font-size: 1.5rem;
@@ -181,7 +185,6 @@
             color: var(--light-text);
         }
 
-        /* Style du tableau de données adaptable au changement de thème */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -190,7 +193,6 @@
             font-size: 0.95rem;
             background-color: var(--header-bg);
             border: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
 
         th, td {
@@ -210,7 +212,103 @@
             background-color: var(--table-row-even);
         }
 
-        /* Pied de page */
+        /* --- STYLES DU BLOC QUIZ --- */
+        .quiz-section {
+            background-color: var(--quiz-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 50px 0;
+            border: 1px solid var(--border-color);
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .quiz-section h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.4rem;
+        }
+
+        .quiz-container {
+            margin-top: 20px;
+        }
+
+        .question {
+            display: none; /* Masquées par défaut, affichées une par une via JS */
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            background-color: var(--quiz-option-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: var(--quiz-option-hover);
+        }
+
+        /* Classes d'état pour les réponses */
+        .option-item.correct {
+            background-color: var(--quiz-correct) !important;
+            color: white;
+            font-weight: bold;
+            border-color: transparent;
+        }
+
+        .option-item.incorrect {
+            background-color: var(--quiz-incorrect) !important;
+            color: white;
+            border-color: transparent;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        .quiz-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .next-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .next-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Fin du document */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -230,11 +328,9 @@
             <div class="logo-container">
                 <img src="logo-iut.png" alt="Logo IUT" class="iut-logo">
             </div>
-            
             <div class="site-title">
                 <h1>Le Journal de la Tech Durable</h1>
             </div>
-            
             <div class="actions-container">
                 <button id="theme-toggle" class="theme-btn">🌙 Mode Sombre</button>
             </div>
@@ -262,12 +358,12 @@
                 <p>Le problème majeur réside dans ce Scope 3, qui représente environ 97 % des émissions totales de l'entreprise. Ces émissions indirectes sont massivement tirées par les catégories "Biens d'équipement" et "Biens et services achetés", des secteurs directement liés à la construction et à l'équipement de nouveaux data centers pour soutenir l'IA.</p>
 
                 <h2>Google : Efficience opérationnelle face au défi du volume global</h2>
-                <p>La stratégie de Google repose sur une ambition forte : fonctionner avec une énergie sans carbone 24 heures sur 24 et 7 jours sur 7. En 2024, l'entreprise a signé des contrats pour plus de 8 GW d'énergie propre additionnelle. Google met en avant l'impact positif de ses technologies, affirmant que cents de ses produits ont permis d'éviter 26 millions de tonnes d'équivalent CO2 (tCO2e) chez ses partenaires et utilisateurs.</p>
-                <p>L'entreprise souligne également avoir réduit de 12 % les émissions énergétiques liées à ses centres de données en 2024. Cette réduction opérationnelle est notable puisqu'elle a été réalisée malgré une augmentation de 27 % de sa consommation électrique globale.</p>
+                <p>La stratégie de Google repose sur une ambition forte : fonctionner avec une énergie sans carbone 24 heures sur 24 et 7 jours sur 7. En 2024, l'entreprise a signé des contrats pour plus de 8 GW d'énergie propre additionnelle. Google met en avant l'impact positif de ses technologies, affirmant que cinq de ses produits ont permis d'éviter 26 millions de tonnes d'équivalent CO2 (tCO2e) chez ses partenaires et utilisateurs.</p>
+                <p>L'entreprise souligne également avoir réduit de 12 % les émissions énergétiques liées à ses centres de données in 2024. Cette réduction opérationnelle est notable puisqu'elle a été réalisée malgré une augmentation de 27 % de sa consommation électrique globale.</p>
                 <p>Néanmoins, l'empreinte environnementale globale reste colossale : <strong>les émissions totales de Google s'élèvent à 11,5 millions de tonnes de CO2 pour l'année 2024.</strong></p>
 
                 <h2>L'exception française : Mistral AI et la transparence chirurgicale</h2>
-                <p>Face aux bilans macroscopiques des géants américains, où l'impact spécifique de l'intelligence artificielle est noyé dans l'activité globale de l'entreprise, le français Mistral AI adopte une approche radicalement différente. Au lieu de donner un chiffre global, l'entreprise a publié une Analyse de Cycle de Vie (ACV) précise pour son modèle d'intelligence artificielle, Mistral Large 2.</p>
+                <p>Face aux bilans macroscopiques des géants américains, où l'impact spécifique de l'intelligence artificielle est noyé dans l'activité globale de l'entreprise, le français Mistral AI adopts une approche radicalement différente. Au lieu de donner un chiffre global, l'entreprise a publié une Analyse de Cycle de Vie (ACV) précise pour son modèle d'intelligence artificielle, Mistral Large 2.</p>
                 <p>L'entraînement seul de ce modèle a généré 20,4 kilotonnes d'équivalent CO2 (soit 20 400 tonnes, ce qui correspond à l'empreinte carbone annuelle d'environ 2 000 citoyens français). Cet entraînement a nécessité la consommation de 281 000 m3 d'eau.</p>
                 <p>L'entreprise calcule même l'impact de l'utilisation quotidienne par les internautes : une réponse type de 400 mots coûte environ 1,14 gramme de CO2 (soit à peu près l'énergie nécessaire pour recharger un smartphone à 50 %).</p>
 
@@ -299,6 +395,54 @@
                     </tbody>
                 </table>
 
+                <section class="quiz-section">
+                    <h3>📊 Le Coin Interactif : Testez votre vigilance !</h3>
+                    <p>Les géants du Web savent manier la communication verte. Saurez-vous démasquer la réalité derrière les promesses ?</p>
+                    
+                    <div class="quiz-container">
+                        <div class="question active" data-correct="2">
+                            <p class="question-text">1. Quelle proportion des émissions totales de Microsoft provient du "Scope 3" (construction des data centers, matériel, logistique...) ?</p>
+                            <ul class="options-list">
+                                <li class="option-item" data-index="0">Environ 12 %</li>
+                                <li class="option-item" data-index="1">Environ 55 %</li>
+                                <li class="option-item" data-index="2">Près de 97 %</li>
+                            </ul>
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="question" data-correct="1">
+                            <p class="question-text">2. Malgré une baisse opérationnelle de ses émissions de data centers, de combien la consommation électrique globale de Google a-t-elle bondi en 2024 ?</p>
+                            <ul class="options-list">
+                                <li class="option-item" data-index="0">+ 5 %</li>
+                                <li class="option-item" data-index="1">+ 27 %</li>
+                                <li class="option-item" data-index="2">Elle est restée stable</li>
+                            </ul>
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="question" data-correct="0">
+                            <p class="question-text">3. L'entraînement de Mistral Large 2 a rejeté 20 400 tonnes de CO2. À quoi cela équivaut-il ?</p>
+                            <ul class="options-list">
+                                <li class="option-item" data-index="0">À l'empreinte carbone annuelle de 2 000 citoyens français</li>
+                                <li class="option-item" data-index="1">À la recharge de 500 tablettes tactiles</li>
+                                <li class="option-item" data-index="2">À un trajet Paris-Marseille en voiture électrique</li>
+                            </ul>
+                            <div class="feedback"></div>
+                        </div>
+
+                        <div class="question" id="quiz-result">
+                            <p class="question-text">Fin du test !</p>
+                            <p id="score-display" style="font-size: 1.3rem; font-weight: bold; color: var(--accent-color);"></p>
+                            <p id="comment-display"></p>
+                        </div>
+                    </div>
+
+                    <div class="quiz-footer">
+                        <span id="progress-indicator">Question 1 / 3</span>
+                        <button id="next-btn" class="next-btn" disabled>Question suivante ➡️</button>
+                    </div>
+                </section>
+
                 <h2>Conclusion</h2>
                 <p>L'émergence de l'intelligence artificielle générative met à l'épreuve les promesses écologiques des géants du numérique. Si les efforts pour acheter de l'énergie verte sont colossaux et réels, ils peinent à compenser l'explosion des besoins matériels et énergétiques (le Scope 3).</p>
                 <p>L'initiative de Mistral AI montre la voie à suivre : pour que la tech soit réellement responsable et évite le greenwashing, elle doit abandonner la communication globale floue au profit d'une transparence précise, produit par produit. Seule cette clarté permettra au grand public et aux régulateurs de mesurer le vrai coût de notre révolution numérique.</p>
@@ -311,20 +455,92 @@
     </footer>
 
     <script>
+        // --- LOGIQUE DU DARK MODE ---
         const toggleBtn = document.getElementById('theme-toggle');
-        
-        // Écoute du clic sur le bouton
         toggleBtn.addEventListener('click', () => {
-            // Bascule la classe .dark-mode sur la balise <body>
             document.body.classList.toggle('dark-mode');
-            
-            // Met à jour le texte du bouton selon l'état du thème
             if (document.body.classList.contains('dark-mode')) {
                 toggleBtn.textContent = '☀️ Mode Clair';
             } else {
                 toggleBtn.textContent = '🌙 Mode Sombre';
             }
         });
+
+        // --- LOGIQUE D'ANIMATION DU QUIZ ---
+        const questions = document.querySelectorAll('.question');
+        const nextBtn = document.getElementById('next-btn');
+        const progressIndicator = document.getElementById('progress-indicator');
+        
+        let currentIdx = 0;
+        let score = 0;
+        let hasAnswered = false;
+
+        function initQuestionEvents() {
+            questions.forEach((q, qIdx) => {
+                const options = q.querySelectorAll('.option-item');
+                const feedback = q.querySelector('.feedback');
+                const correctAnswerIdx = parseInt(q.getAttribute('data-correct'));
+
+                options.forEach(option => {
+                    option.addEventListener('click', () => {
+                        if (hasAnswered) return; // Empêche de recliquer sur une autre option
+
+                        hasAnswered = true;
+                        const selectedAnswerIdx = parseInt(option.getAttribute('data-index'));
+
+                        if (selectedAnswerIdx === correctAnswerIdx) {
+                            option.classList.add('correct');
+                            feedback.innerHTML = " Bonne réponse !";
+                            feedback.style.color = "var(--quiz-correct)";
+                            score++;
+                        } else {
+                            option.classList.add('incorrect');
+                            options[correctAnswerIdx].classList.add('correct');
+                            feedback.innerHTML = " Mauvaise réponse. La bonne réponse était surlignée en vert.";
+                            feedback.style.color = "var(--quiz-incorrect)";
+                        }
+
+                        nextBtn.disabled = false;
+                    });
+                });
+            });
+        }
+
+        nextBtn.addEventListener('click', () => {
+            questions[currentIdx].classList.remove('active');
+            currentIdx++;
+            hasAnswered = false;
+            nextBtn.disabled = true;
+
+            if (currentIdx < questions.length - 1) {
+                questions[currentIdx].classList.add('active');
+                progressIndicator.textContent = `Question ${currentIdx + 1} / 3`;
+                if (currentIdx === questions.length - 2) {
+                    nextBtn.textContent = "Voir mes résultats ";
+                }
+            } else {
+                // Affichage des scores finaux
+                questions[currentIdx].classList.add('active');
+                progressIndicator.textContent = "Terminé !";
+                nextBtn.style.display = "none";
+                
+                const scoreDisplay = document.getElementById('score-display');
+                const commentDisplay = document.getElementById('comment-display');
+                
+                scoreDisplay.textContent = `Votre score : ${score} / 3`;
+                
+                if (score === 3) {
+                    commentDisplay.textContent = "Excellent ! Vous avez lu l'article avec une attention chirurgicale. La directive CSRD n'a aucun secret pour vous.";
+                } else if (score === 2) {
+                    commentDisplay.textContent = "Bon score ! Vous distinguez bien les promesses marketing de la réalité des chiffres.";
+                } else {
+                    commentDisplay.textContent = "N'hésitez pas à relire les sections sur Google et Microsoft, les ordres de grandeur du Scope 3 sont surprenants !";
+                }
+            }
+        });
+
+        // Lancement
+        initQuestionEvents();
     </script>
 </body>
 </html>
